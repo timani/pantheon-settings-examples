@@ -2,30 +2,35 @@
 machine:
   php:
     version: 5.5.11
+  # https://circleci.com/docs/environment#databases
+  services:
+    - redis
   environment: 
-    DATABASE: 'drupal'
-    DB_USERNAME: 'root'
+    # https://circleci.com/docs/config-sample#sample
+    DATABASE_URL: mysql://ubuntu:@127.0.0.1:5432/circle_test 
     DB_ENCODE: 'utf8'
-    MODULE_PATH: 'build/sites/all/modules'
+    MODULE_PATH: 'sites/all/modules'
+    BUILD_DIR: 'build_dir'
   
-dependencies:
+dependencies: 
+  # Install additional test dependencies here (like drush, terminus, redis, Behat, etc).
   pre: 
     # Install Drush.
     - composer global require drush/drush:6.2.0 
     # Install Terminus.
     - git clone https://github.com/pantheon-systems/terminus.git $HOME/.drush/terminus
     - cd $HOME/.drush/terminus 
-    - drush cc drush
-  # Install additional test dependencies here (like Casper, Behat, etc).
+    - drush cc drush 
   override: 
     # We cannot be in a Drupal directory to run aliased drush commands.
     - cd $HOME 
-    # Enable additional test dependencies here, like SimpleTest.
-    # - drush @pantheon.$PNAME.$PSITE en simpletest -y --strict=0
-    # If you're using SimpleTest, you'll want to disable verbose logging. This
-    # ensures no false build failures from file write errors.
-    # - drush @pantheon.$PNAME.$PSITE vset -y simpletest_verbose 0 --strict=0
+    - mkdir $BUILD_DIR
+    - mkdir -p $BUILD_DIR/$MODULE_PATH
+    - cd $BUILD_DIR 
     - pwd
+    # - git archive $(git rev-parse --abbrev-ref HEAD) | tar -x -C $MODULE_PATH
+    - drush --yes site-install minimal --db-url="$DATABASE_URL" 
+    - drush --yes en simpletest
  
 test:
   override:
@@ -35,8 +40,8 @@ test:
     # likes to exit with odd codes if you run multiple classes at once.
     # You may have to run one class at a time.
     #
-    - drush @pantheon.$PNAME.$PSITE test-run MyTestClass --strict=0
-    - drush @pantheon.$PNAME.$PSITE test-run MyTestClass2 --strict=0
+    # - drush @pantheon.$PNAME.$PSITE test-run MyTestClass --strict=0
+    # - drush @pantheon.$PNAME.$PSITE test-run MyTestClass2 --strict=0
   post:
   # Destroy the Pantheon environment 
 
