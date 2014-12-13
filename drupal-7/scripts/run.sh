@@ -6,7 +6,7 @@ pwd
 echo $HOME
 
 # Make a Drupal installation to run the tests
-drush --yes make ./drupal-7/scripts/drupal-7.make $BUILD_DIR
+drush --yes make .drupal-7.make $BUILD_DIR
 mkdir -p $BUILD_DIR/$MODULE_PATH
 cd $BUILD_DIR 
 pwd
