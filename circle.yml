@@ -20,10 +20,13 @@ dependencies:
     # Install Terminus.
     - git clone https://github.com/pantheon-systems/terminus.git $HOME/.drush/terminus
     - cd $HOME/.drush/terminus 
+    - pwd
     - drush cc drush 
   override: 
     # We cannot be in a Drupal directory to run aliased drush commands.
     - cd $HOME 
+    - pwd
+    - echo $HOME
     - drush --yes make ./drupal-7/scripts/drupal-7.make $BUILD_DIR
     - mkdir -p $BUILD_DIR/$MODULE_PATH
     - cd $BUILD_DIR 
