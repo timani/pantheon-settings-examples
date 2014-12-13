@@ -2,12 +2,11 @@
 machine:
   php:
     version: 5.5.11
-  env:
-    global: 
-      - DATABASE='drupal'
-      - DB_USERNAME='root'
-      - DB_ENCODE='utf8'
-      - MODULE_PATH='build/sites/all/modules'
+  environment: 
+    - DATABASE='drupal'
+    - DB_USERNAME='root'
+    - DB_ENCODE='utf8'
+    - MODULE_PATH='build/sites/all/modules'
   
 dependencies:
   pre: 
