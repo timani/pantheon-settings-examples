@@ -23,17 +23,7 @@ dependencies:
     - pwd
     - drush cc drush 
   override: 
-    # We cannot be in a Drupal directory to run aliased drush commands.
-    - cd $HOME 
-    - pwd
-    - echo $HOME
-    - drush --yes make ./drupal-7/scripts/drupal-7.make $BUILD_DIR
-    - mkdir -p $BUILD_DIR/$MODULE_PATH
-    - cd $BUILD_DIR 
-    - pwd
-    # - git archive $(git rev-parse --abbrev-ref HEAD) | tar -x -C $MODULE_PATH
-    - drush --yes site-install minimal --db-url="$DATABASE_URL" 
-    - drush --yes en simpletest
+    - bash ./drupal-7/scripts/run.sh
  
 test:
   override:
