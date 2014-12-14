@@ -22,7 +22,7 @@ dependencies:
     - drush cc drush 
   override: 
     # Make a Drupal installation to run the tests
-    - drush --yes make drupal-7.make $BUILD_DIR 
+    - drush --yes make ./drupal-7/scripts/drupal-7.make $BUILD_DIR 
     # - git archive $(git rev-parse --abbrev-ref HEAD) | tar -x -C $MODULE_PATH
     # Install Drupal
     - drush --yes site-install minimal --db-url="$DATABASE_URL" 
