@@ -5,6 +5,7 @@ machine:
   # https://circleci.com/docs/environment#databases
   services:
     - redis
+    - mysql
   environment: 
     # https://circleci.com/docs/config-sample#sample
     DATABASE_URL: mysql://ubuntu:@127.0.0.1:33066/circle_test 
