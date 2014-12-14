@@ -7,7 +7,7 @@ machine:
     - redis
   environment: 
     # https://circleci.com/docs/config-sample#sample
-    DATABASE_URL: mysql://ubuntu:@127.0.0.1:5432/circle_test 
+    DATABASE_URL: mysql://ubuntu:@127.0.0.1:33066/circle_test 
     DB_ENCODE: 'utf8'
     MODULE_PATH: 'sites/all/modules'
     BUILD_DIR: 'build_dir'
