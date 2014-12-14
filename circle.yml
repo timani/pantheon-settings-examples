@@ -26,6 +26,7 @@ dependencies:
     # - git archive $(git rev-parse --abbrev-ref HEAD) | tar -x -C $MODULE_PATH
     # Install Drupal
     - cd $BUILD_DIR
+    - ls -la
     - drush --yes site-install minimal --db-url="$DATABASE_URL" 
     - drush --yes en simpletest
  
