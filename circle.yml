@@ -19,11 +19,14 @@ dependencies:
     - composer global require drush/drush:6.2.0 
     # Install Terminus.
     - git clone https://github.com/pantheon-systems/terminus.git $HOME/.drush/terminus
-    - cd $HOME/.drush/terminus 
-    - pwd
     - drush cc drush 
   override: 
-    - bash ./drupal-7/scripts/run.sh
+    # Make a Drupal installation to run the tests
+    - drush --yes make drupal-7.make $BUILD_DIR 
+    # - git archive $(git rev-parse --abbrev-ref HEAD) | tar -x -C $MODULE_PATH
+    # Install Drupal
+    - drush --yes site-install minimal --db-url="$DATABASE_URL" 
+    - drush --yes en simpletest
  
 test:
   override:
