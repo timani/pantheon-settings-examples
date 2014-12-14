@@ -24,9 +24,8 @@ dependencies:
     # Make a Drupal installation to run the tests
     - drush --yes make ./drupal-7/scripts/drupal-7.make $BUILD_DIR 
     # - git archive $(git rev-parse --abbrev-ref HEAD) | tar -x -C $MODULE_PATH
-    # Install Drupal
-    - ls -la $BUILD_DIR
-    - cd $BUILD_DIR && drush --yes site-install minimal --db-url="$DATABASE_URL" 
+    # Install Drupal 
+    - cd $BUILD_DIR && drush --yes site-install minimal --db-url="$DATABASE_URL" --site-name="Test Sandbox"
     - drush --yes en simpletest
  
 test:
